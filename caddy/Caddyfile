@@ -1,0 +1,5 @@
+:443 {
+    encode gzip
+    reverse_proxy jupyter-lab:8888
+    tls /etc/caddy/fullchain.pem /etc/caddy/privkey.pem
+}

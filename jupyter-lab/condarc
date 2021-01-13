@@ -1,0 +1,14 @@
+default_channels:
+  - https://anaconda.mirrors.sjtug.sjtu.edu.cn/pkgs/r
+  - https://anaconda.mirrors.sjtug.sjtu.edu.cn/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/pro
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://anaconda.mirrors.sjtug.sjtu.edu.cn/cloud/
+  pytorch: https://anaconda.mirrors.sjtug.sjtu.edu.cn/cloud/
+channels:
+  - defaults
+show_channel_urls: true
