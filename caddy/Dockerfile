@@ -1,4 +1,4 @@
-FROM caddy:2.0.0
+FROM caddy:2.3.0
 
 COPY Caddyfile /etc/caddy/Caddyfile
 # COPY fullchain.pem /etc/caddy/fullchain.pem

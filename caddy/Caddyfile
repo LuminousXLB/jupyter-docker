@@ -1,5 +1,26 @@
 :443 {
+    @monitor {
+        path /monitor*
+    }
+
     encode gzip
+
+    reverse_proxy @monitor grafana:3000
     reverse_proxy jupyter-lab:8888
+
     tls /etc/caddy/fullchain.pem /etc/caddy/privkey.pem
+
+    log {
+        output net tcp/log-handler:3030
+
+        format filter {
+            wrap json
+            fields {
+                common_log delete
+                resp_headers delete
+                request>headers delete
+                request>tls delete
+            }
+        }
+    }
 }
