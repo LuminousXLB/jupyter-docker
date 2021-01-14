@@ -5,7 +5,7 @@ CREATE TABLE AccessLog.Log (
     level       VARCHAR(16),
     ts          TIMESTAMP               NOT NULL,
     remote_addr INET                    NOT NULL,
-    remote_port SMALLINT                NOT NULL,
+    remote_port INTEGER                 NOT NULL,
     method      VARCHAR(8),
     path        TEXT,
     query       TEXT,
