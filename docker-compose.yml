@@ -18,6 +18,7 @@ services:
       - type: bind
         source: /etc/letsencrypt/live/jupyter.taraxacum.ink/privkey.pem
         target: /etc/caddy/privkey.pem
+      - "./workspace:/var/www/files"
     ports:
       - 13080:80
       - 13443:443

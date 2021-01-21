@@ -3,12 +3,33 @@
         path /monitor*
     }
 
-    encode gzip
+    @lab {
+        not {
+            path /monitor*
+            path /file_server*
+        }
+    }
+
+    @protected {
+        path /file_server*
+    }
+
+    encode zstd gzip
+    tls /etc/caddy/fullchain.pem /etc/caddy/privkey.pem
 
     reverse_proxy @monitor grafana:3000
-    reverse_proxy jupyter-lab:8888
+    reverse_proxy @lab jupyter-lab:8888
 
-    tls /etc/caddy/fullchain.pem /etc/caddy/privkey.pem
+    route @protected {
+        uri strip_prefix /file_server
+        file_server browse {
+            root /var/www/files
+        }
+    }
+
+    basicauth @protected {
+        yingyingying JDJhJDE0JGhXanQzUVZENjRjQmpkdExFWC9sVS5nbE53NlZjZDdVRWwxeHhWd0VmRjVLMi5xQ1hIVVYy
+    }
 
     log {
         output net tcp/log-handler:3030
@@ -23,4 +44,5 @@
             }
         }
     }
+
 }
