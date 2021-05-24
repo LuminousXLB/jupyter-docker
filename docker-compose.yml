@@ -3,14 +3,9 @@ services:
 
   caddy:
     restart: on-failure
-    networks:
-      - wsgi_net
-      - log_net
     build: ./caddy
     depends_on:
-      - log-handler
       - jupyter-lab
-      - grafana
     volumes:
       - type: bind
         source: /etc/letsencrypt/live/jupyter.taraxacum.ink/fullchain.pem
@@ -19,6 +14,8 @@ services:
         source: /etc/letsencrypt/live/jupyter.taraxacum.ink/privkey.pem
         target: /etc/caddy/privkey.pem
       - "./workspace:/var/www/files"
+    networks:
+      - wsgi_net
     ports:
       - 13080:80
       - 13443:443
@@ -35,52 +32,5 @@ services:
       - "./workspace:/home/jovyan/work"
     command: start.sh jupyter lab
 
-  log-handler:
-    restart: on-failure
-    networks:
-      - log_net
-      - data_net
-    depends_on:
-      - postgres-db
-    build: ./log-handler
-    image: caddy-log-handler
-    expose:
-      - 3030
-    env_file:
-      - ./secrets/postgres-db.env
-
-  postgres-db:
-    image: postgres:12-alpine
-    restart: on-failure
-    networks:
-      - data_net
-    expose:
-      - 5432
-    env_file:
-      - ./secrets/postgres-db.env
-    environment:
-      - POSTGRES_DB=AccessLog
-      - PGDATA=/data/postgresql
-    volumes:
-      - "./data:/data"
-      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
-
-  grafana:
-    restart: on-failure
-    image: grafana/grafana
-    user: root
-    networks:
-      - wsgi_net
-      - data_net
-    volumes:
-      - "./data/grafana:/var/lib/grafana"
-      - "./grafana.ini:/etc/grafana/grafana.ini"
-    depends_on:
-      - postgres-db
-    expose:
-      - 3000
-
 networks:
   wsgi_net:
-  log_net:
-  data_net:
