@@ -399,7 +399,7 @@
 #
 #  The string should be of the form type:salt:hashed-password.
 #  Default: ''
-c.NotebookApp.password = 'argon2:$argon2id$v=19$m=10240,t=10,p=8$dESSjENcw+HU7EZ5vRs+Aw$En1vgJD7pvkSISCvW278DA'
+c.NotebookApp.password = 'blake2s:b90a4ffe8de8:19f23f71fbc25b43eac90f1e14368aace1d9698b99fe96fe223819a1d3a137ca'
 
 # Forces users to use a password for the Notebook server. This is useful in a
 #  multi user environment, for instance when everybody in the LAN can access each
