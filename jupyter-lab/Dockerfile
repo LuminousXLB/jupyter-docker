@@ -35,6 +35,8 @@ RUN fc-cache && \
     'jedi<0.18.0,>=0.17.2' \
     xlsxwriter \
     requests \
+    httpx \
+    bs4 \
     lxml \
     html5lib \
     black \
